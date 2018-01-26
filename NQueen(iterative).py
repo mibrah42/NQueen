@@ -27,27 +27,48 @@ def print_board(chess_board):
 		print(line)
 
 
-def iterative(column = 0):
+def iterative(row=0, column = 0):
 	
 	chess_board = [[0 for x in range(size)] for y in range(size)] 
 	positions = []
 
 	for col in range(size):
-		for row in range(size):
-			if check_position(chess_board, row, col):
-				# my_list.add(row,col)
-				chess_board[row][col] = "Q"
+		while(True):
+			s = check_position(chess_board,row,col)
+			if (s == True):
 				positions.append((row,col))
+				chess_board[row][col] = "Q"
 				break
-			else:
-				if row == size - 1:
-					for r in range(positions[len(positions)-1][0] + 1, size - 1):
-						if check_position(chess_board, r, positions[len(positions)-1][1]-1):
-							chess_board[r][positions[len(positions)-1][1]-1] = "Q"
-							positions.append((r,positions[len(positions)-1][1]-1))
-							break
-				
+			while(s == False) :
+				if row > size-1:
+					row = positions[len(positions)-1][0]
+					col = positions[len(positions)-1][1]
+					positions.pop(len(positions)-1)
+					break
+				row = row+1	
+				break
+
 	print_board(chess_board)
+
+iterative()					
+
+
+	# for col in range(size):
+	# 	for row in range(size):
+	# 		if check_position(chess_board, row, col):
+	# 			# my_list.add(row,col)
+				# chess_board[row][col] = "Q"
+	# 			positions.append((row,col))
+	# 			break
+	# 		else:
+	# 			if row == size - 1:
+	# 				for r in range(positions[len(positions)-1][0] + 1, size - 1):
+	# 					if check_position(chess_board, r, positions[len(positions)-1][1]):
+	# 						chess_board[r][positions[len(positions)-1][1]] = "Q"
+	# 						positions.append((r,positions[len(positions)-1][1]))
+	# 						break
+				
+	# print_board(chess_board)
 
 
 iterative()
